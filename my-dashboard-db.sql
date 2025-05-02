@@ -1,0 +1,36 @@
+﻿--sqlcmd -S localhost -E
+
+SELECT name FROM sys.databases;
+GO
+
+--create database MyDashboardDb;
+--GO
+
+CREATE SCHEMA MD
+
+CREATE TABLE MD.ErrorLog (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Date DATETIME NOT NULL,
+    LogLevel NVARCHAR(50) NOT NULL,
+    Message NVARCHAR(MAX) NOT NULL,
+    Exception NVARCHAR(MAX) NULL,
+    Source NVARCHAR(100) NULL
+);
+
+CREATE TABLE MD.Users (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Username NVARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Email NVARCHAR(255) NULL,
+    Role NVARCHAR(50) NOT NULL DEFAULT 'User',
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE MD.RefreshTokens (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    UserId INT NOT NULL FOREIGN KEY REFERENCES MD.Users(Id),
+    Token NVARCHAR(255) NOT NULL,
+    ExpiresAt DATETIME NOT NULL,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    RevokedAt DATETIME NULL
+);

@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/my-dashboard-api/.vs/ProjectEvaluation/my-dashboard-api.metadata.v9.bin
+/my-dashboard-api/.vs
+/my-dashboard-api/MyDashboard.Model/bin/Debug/net8.0
+/my-dashboard-api/MyDashboard.Repository/bin/Debug/net8.0
+/my-dashboard-api/MyDashboard.Service/bin/Debug/net8.0
+/my-dashboard-api/MyDashboard.WebApi/bin/Debug/net8.0
+/my-dashboard-api/MyDashboard.WebApi/obj
+/my-dashboard-api/MyDashboard.Service/obj
+/my-dashboard-api/MyDashboard.Repository/obj
+/my-dashboard-api/MyDashboard.Model/obj
+/my-dashboard-api/MyDashboard.Model/efpt.config.json

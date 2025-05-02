@@ -1,0 +1,12 @@
+ng new my-dashboard-ui
+dotnet new sln -n my-dashboard-api
+dotnet new webapi -n MyDashboard.WebApi 
+dotnet sln my-dashboard-api.sln add MyDashboard.WebApi/MyDashboard.WebApi.csproj
+dotnet new classlib -n MyDashboard.Service
+dotnet sln my-dashboard-api.sln add MyDashboard.Service/MyDashboard.Service.csproj
+dotnet new classlib -n MyDashboard.Repository
+dotnet sln my-dashboard-api.sln add MyDashboard.Repository/MyDashboard.Repository.csproj
+dotnet new classlib -n MyDashboard.Model
+dotnet sln my-dashboard-api.sln add MyDashboard.Model/MyDashboard.Model.csproj
+
+

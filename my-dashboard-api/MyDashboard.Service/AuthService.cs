@@ -22,7 +22,6 @@ public class AuthService: IAuthService
     private readonly IAuthRepositoy _authRepositoy;
     private readonly MyDashboardSettings _appSettings;
     private readonly IMapper _mapper;
-    private readonly PasswordHasher<string> _passwordHasher = new();
 
     public AuthService(IAuthRepositoy authRepositoy, 
         IOptions<MyDashboardSettings> options,
@@ -38,7 +37,7 @@ public class AuthService: IAuthService
         var userExist = _mapper.Map<UserDto>(await _authRepositoy
             .ValidateUserAsync(_mapper.Map<User>(user)));
 
-        if (userExist == null)
+        if (userExist == null || !AuthHelper.VerifyPassword(user.Username, user.Password, userExist.PasswordHash))
             throw new UnauthorizedAccessException();
 
         var accessToken = AuthHelper.GenerateAccessToken(userExist, _appSettings.Jwt);
@@ -76,13 +75,16 @@ public class AuthService: IAuthService
 
     public async Task<bool> RegisterAsync(RegisterDto user)
     {
+        user.Password = AuthHelper
+                    .HashPassword(user.Username, user.Password);
+
         return await _authRepositoy
             .RegisterAsync(_mapper.Map<User>(user));
     }
 
     #region 
 
-    public async Task SaveRefreshTokenAsync(string token, int userId)
+    private async Task SaveRefreshTokenAsync(string token, int userId)
     {
         var refresh = new RefreshTokenDto()
         {

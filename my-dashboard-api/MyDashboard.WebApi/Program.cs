@@ -36,9 +36,20 @@ builder.Services
     .RegisterAppLogger();
 builder.Services
     .AddJwtAuthentication(myDashboardSettings!);
+builder.Services
+    .AddCors(options =>
+    {
+        options.AddPolicy(Constants.POLICY, policy =>
+        {
+            policy.WithOrigins(myDashboardSettings!.AllowedHosts)
+             .AllowAnyHeader()
+              .AllowAnyMethod();
+        });
+    });
 
 var app = builder.Build();
 
+app.UseCors(Constants.POLICY);
 app.UseMiddleware<ExceptionMiddleware>();
 if (app.Environment.IsDevelopment())
 {

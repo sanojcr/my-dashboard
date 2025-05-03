@@ -13,4 +13,5 @@ public static class Constants
     public const string UNHANDLED_EXCEPTION = "Unhandled exception";
     public const string INTERNAL_SERVER_ERROR = "Internal Server Error";
     public const string UNHANDLED_EXCEPTION_OCCURRED = "Unhandled exception occurred";
+    public const string POLICY = "myPolicy";
 }

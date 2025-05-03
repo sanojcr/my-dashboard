@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using MyDashboard.Model.Dtos;
 
@@ -57,6 +58,19 @@ namespace MyDashboard.Model
 
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.ValidateToken(token, tokenValidationParameters, out _);
+        }
+
+        public static string HashPassword(string userName, string plainPassword)
+        {
+            var passwordHasher = new PasswordHasher<string>();
+            return passwordHasher.HashPassword(userName, plainPassword);
+        }
+
+        public static bool VerifyPassword(string userName, string enteredPassword, string storedHashedPassword)
+        {
+            var passwordHasher = new PasswordHasher<string>();
+            var result = passwordHasher.VerifyHashedPassword(userName, storedHashedPassword, enteredPassword);
+            return result == PasswordVerificationResult.Success;
         }
     }
 }

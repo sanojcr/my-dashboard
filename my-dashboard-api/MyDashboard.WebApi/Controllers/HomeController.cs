@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MyDashboard.WebApi.Controllers
 {
@@ -6,10 +7,17 @@ namespace MyDashboard.WebApi.Controllers
     [Route("api/home")]
     public class HomeController : ControllerBase
     {
-        [HttpGet("get")]
-        public IActionResult Index()
+        [Authorize]
+        [HttpGet("checkAuth")]
+        public IActionResult CheckAuthorization()
         {
-            return Ok("User is able to login successfully");
+            return Ok(new { message = "User is able to access the restricted endpoint" });
+        }
+
+        [HttpGet("get")]
+        public IActionResult CheckApiEndPoint()
+        {
+            return Ok(new { message = "User is able to access the non restricted endpoint" });
         }
     }
 }

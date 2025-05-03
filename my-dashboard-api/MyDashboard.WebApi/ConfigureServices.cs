@@ -19,6 +19,7 @@ namespace MyDashboard.WebApi
             services.AddDbContext<MyDashboardlDbContext>(options =>
             {
                 options.UseSqlServer(appSettings.ConnectionStrings.MyDashboardDb)
+                .UseLazyLoadingProxies()
                 .LogTo(Console.WriteLine, LogLevel.Information)
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors();
@@ -67,7 +68,6 @@ namespace MyDashboard.WebApi
                 });
 
             services.AddAuthorization();
-
             return services;
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MyDashboard.Model;
 using MyDashboard.Model.Dtos;
 using MyDashboard.Model.Entities.Entities;
 using MyDashboard.Repository.Interface;
@@ -23,8 +24,8 @@ namespace MyDashboard.Repository
             var query = _dashboardlDbContext
                 .Users
                 .Where(x =>
-                x.Username == user.Username
-                && x.PasswordHash == user.PasswordHash);
+                x.Username == user.Username);
+            
             return await query
                 .FirstOrDefaultAsync();
         }
@@ -67,7 +68,7 @@ namespace MyDashboard.Repository
                 (x, u) =>
                 new
                 {
-                    r = x.r,
+                    x.r,
                     u
                 }).Where(x =>
                 x.r.Token == refreshToken

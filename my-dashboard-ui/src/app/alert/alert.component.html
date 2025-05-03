@@ -1,0 +1,6 @@
+<div class="custom-alert-wrapper">
+    <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show" role="alert">
+        {{ alert.text }}
+        <button type="button" class="btn-close" (click)="alert = null" aria-label="Close"></button>
+    </div>
+</div>

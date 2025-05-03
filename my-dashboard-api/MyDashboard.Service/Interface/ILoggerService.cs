@@ -9,6 +9,6 @@ namespace MyDashboard.Service.Interface
 {
     public interface ILoggerService
     {
-        void AddLogToDatabase(ErrorLogDto error);
+        bool AddLogToDatabase(ErrorLogDto error);
     }
 }

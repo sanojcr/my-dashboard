@@ -12,8 +12,13 @@ public class LoggerRepository: ILoggerRepository
         _dashboardlDbContext = dashboardlDbContext;
     }
 
-    public void AddLogToDatabase(ErrorLog error)
+    public bool AddLogToDatabase(ErrorLog error)
     {
-        
+        _dashboardlDbContext
+           .ErrorLogs
+           .Add(error);
+
+        var result =  _dashboardlDbContext.SaveChanges();
+        return result > 0;
     }
 }

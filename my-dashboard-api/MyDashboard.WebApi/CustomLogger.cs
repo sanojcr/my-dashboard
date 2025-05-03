@@ -17,7 +17,7 @@ namespace MyDashboard.WebApi
 
         public IDisposable BeginScope<TState>(TState state) => null;
 
-        public bool IsEnabled(LogLevel logLevel) => true;
+        public bool IsEnabled(LogLevel logLevel) => (logLevel != LogLevel.Information && logLevel != LogLevel.Debug);
 
         public void Log<TState>(LogLevel logLevel, EventId eventId,
             TState state, Exception exception, Func<TState, Exception, string> formatter)
@@ -26,7 +26,7 @@ namespace MyDashboard.WebApi
             {
                 var log = new ErrorLogDto
                 {
-                    Timestamp = DateTime.UtcNow,
+                    Date = DateTime.UtcNow,
                     LogLevel = logLevel.ToString(),
                     Message = formatter(state, exception),
                     Exception = exception?.ToString(),

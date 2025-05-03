@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,8 @@ import { AuthService } from './services/auth.service';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './services/alert.service';
 import { HomeService } from './services/home.service';
+import { AppErrorHandler } from './app.error-handler';
+import { ErrorHandlerService } from './services/error.service';
 
 @NgModule({
   declarations: [
@@ -36,11 +38,13 @@ import { HomeService } from './services/home.service';
     AuthService,
     AlertService,
     HomeService,
+    ErrorHandlerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    { provide: ErrorHandler, useClass: AppErrorHandler }
   ],
   bootstrap: [AppComponent]
 })

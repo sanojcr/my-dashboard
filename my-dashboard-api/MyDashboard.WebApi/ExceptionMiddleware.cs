@@ -64,6 +64,7 @@ namespace MyDashboard.WebApi
                 _logger.LogError($"{Constants.UNHANDLED_EXCEPTION}: {ex!.Message}", ex);
             }
 
+            httpContext.Response.StatusCode = statusCode;
             var response = new
             {
                 StatusCode = statusCode,

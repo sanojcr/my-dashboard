@@ -23,9 +23,9 @@ namespace MyDashboard.Service
             _mapper = mapper;
         }
 
-        public void AddLogToDatabase(ErrorLogDto error)
+        public bool AddLogToDatabase(ErrorLogDto error)
         {
-            _loggerRepository
+            return _loggerRepository
                 .AddLogToDatabase(_mapper.Map<ErrorLog>(error));
         }
     }

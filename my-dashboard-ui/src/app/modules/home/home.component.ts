@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HomeService } from '../../services/home.service';
 import { Content } from '../../models/content';
+import { AlertService } from '../../services/alert.service';
+import { ErrorHandlerService } from '../../services/error.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private homeService: HomeService,
+    private alertService: AlertService,
+    private error : ErrorHandlerService,
     private router: Router,
   ) {
   }
@@ -32,6 +36,24 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  onThrowError() {
+    this.homeService.throwError().subscribe({
+      next: (res: Content) => {
+        if (res) {
+          this.description = res.message;
+          console.log(res);
+        }
+      },
+      error: (err) => {
+        this.alertService.error(this.error.getHttpErrorMessage(err));
+      }
+    });
+  }
+
+  onThrowErrorWithServer() {
+    throw new Error("This will trigger the global error handler");
   }
 
 }

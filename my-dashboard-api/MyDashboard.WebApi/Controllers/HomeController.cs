@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyDashboard.Model.Exceptions;
 
 namespace MyDashboard.WebApi.Controllers
 {
@@ -18,6 +19,13 @@ namespace MyDashboard.WebApi.Controllers
         public IActionResult CheckApiEndPoint()
         {
             return Ok(new { message = "User is able to access the non restricted endpoint" });
+        }
+
+        [HttpGet("throwVaidationError")]
+        public IActionResult ThrowVaidationError()
+        {
+            throw new ValidationException("Vaidation Error has been throwed");
+            return Ok();
         }
     }
 }

@@ -49,32 +49,13 @@ builder.Services
 
 var app = builder.Build();
 
-app.UseCors(Constants.POLICY);
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseCors(Constants.POLICY);
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
 }
-else
-{
-   app.UseExceptionHandler("/error");
-}
-
-app.Map("/error", (HttpContext context) =>
-{
-    var exceptions = context
-    .Features.Get<IExceptionHandlerFeature>()?
-    .Error;
-
-    return Results
-    .Problem(
-        detail: Constants.GENERAL_ERROR,
-        title: Constants.SERVER_ERROR,
-        statusCode: 500
-        );
-});
 
 app.UseOutputCache();
 app.UseHttpsRedirection();

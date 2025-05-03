@@ -9,6 +9,6 @@ namespace MyDashboard.Repository.Interface
 {
     public interface ILoggerRepository
     {
-        void AddLogToDatabase(ErrorLog error);
+        bool AddLogToDatabase(ErrorLog error);
     }
 }

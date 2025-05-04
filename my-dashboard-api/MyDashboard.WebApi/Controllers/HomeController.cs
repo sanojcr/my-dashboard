@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using MyDashboard.Model.Exceptions;
 
 namespace MyDashboard.WebApi.Controllers
@@ -10,6 +11,7 @@ namespace MyDashboard.WebApi.Controllers
     {
         [Authorize]
         [HttpGet("checkAuth")]
+        [OutputCache(Duration = 60)]
         public IActionResult CheckAuthorization()
         {
             return Ok(new { message = "User is able to access the restricted endpoint" });

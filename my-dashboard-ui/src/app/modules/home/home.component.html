@@ -1,8 +1,11 @@
 <h1>You are in home page</h1>
 
 {{description}}
-
 <br/>
-<br/><br/><br/>
+<br/>
+Email: {{user.email}}
+Role: {{user.role}}
+<br/>
+<br/>
 <button class="btn btn-danger" (click)="onThrowError()">Throw Custom Error</button>
 <button class="btn btn-danger" (click)="onThrowErrorWithServer()">Throw Global Error</button>

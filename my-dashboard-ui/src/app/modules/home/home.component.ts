@@ -5,6 +5,7 @@ import { HomeService } from '../../services/home.service';
 import { Content } from '../../models/content';
 import { AlertService } from '../../services/alert.service';
 import { ErrorHandlerService } from '../../services/error.service';
+import { Claims } from '../../models/claims';
 
 @Component({
   selector: 'app-home',
@@ -12,15 +13,17 @@ import { ErrorHandlerService } from '../../services/error.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  user: Claims = {email: '', role: '', name: ''};
   description: string = '';
 
   constructor(
     private authService: AuthService,
     private homeService: HomeService,
     private alertService: AlertService,
-    private error : ErrorHandlerService,
+    private error: ErrorHandlerService,
     private router: Router,
   ) {
+     this.user = this.authService.getTokenPayload();
   }
 
   ngOnInit(): void {

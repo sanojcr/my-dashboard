@@ -9,6 +9,8 @@ import { Common } from '../constants/common';
 import { User } from '../models/user';
 import { ErrorHandlerService } from './error.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Claims } from '../models/claims';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +62,19 @@ export class AuthService {
   getRefreshToken(): string | null {
     const token = this.cookieService.get(Common.REFRESH_TOKEN);
     return token ? token : null;
+  }
+
+  getTokenPayload(): Claims {
+    const token = this.getToken();
+    const decoded = jwtDecode<any>(token!);
+
+    const claims : Claims = {
+      name: decoded[Common.CLAIM_NAME],
+      email: decoded[Common.CLAIM_EMAIL],
+      role: decoded[Common.CLAIM_ROLE],
+    };
+
+    return claims;
   }
 
   logout(): void {

@@ -16,6 +16,7 @@ import { AlertService } from './services/alert.service';
 import { HomeService } from './services/home.service';
 import { AppErrorHandler } from './app.error-handler';
 import { ErrorHandlerService } from './services/error.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ErrorHandlerService } from './services/error.service';
       useClass: AuthInterceptor,
       multi: true
     },
-    { provide: ErrorHandler, useClass: AppErrorHandler }
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
